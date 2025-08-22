@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: Transcription Search API
+  description: API to search and retrieve content from podcast and workshop transcriptions.
+  version: v1.0.0
+servers:
+  - url: https://YOUR_SUPABASE_PROJECT_REF.supabase.co/functions/v1
+paths:
+  /search:
+    post:
+      summary: Search for relevant content in transcriptions.
+      description: Searches the vector database for text chunks semantically similar to the user's query.
+      operationId: searchTranscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The user's search query.
+      responses:
+        '200':
+          description: A list of relevant transcription chunks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+                      description: The text content of the transcription chunk.
+                    source:
+                      type: string
+                      description: The name of the file the content came from.
